@@ -1,0 +1,33 @@
+
+import com.sytecso.jbpm.client.rs.JbpmRestTemplateImpl;
+import org.junit.Test;
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ *
+ * @author Eduardo
+ */
+public class JbpmClientTest {
+    JbpmRestTemplateImpl rs = new JbpmRestTemplateImpl();
+    String url = "http://192.168.1.38:8080/gwt-console-server/rs/tasks/gonzalo";
+    String image = "http://192.168.1.38:8080/gwt-console-server/rs/process/definition/ValidarBecas/image";
+    
+    @Test()
+    public void test()throws Exception{        
+        System.out.println("**************************   call test");
+        System.out.println(rs.image(image));
+        rs.getCookies();
+        
+        System.out.println("**************************");
+        System.out.println(rs.image(image));
+        
+        //System.out.println("byte size: "+rs.image(image, "juan", "juan").length);
+        //System.out.println("byte size: "+rs.image(image).length);
+    }
+    
+}
