@@ -19,12 +19,13 @@ public class JbpmClientTest {
     String image = "http://192.168.1.38:8080/gwt-console-server/rs/process/definition/ValidarBecas/image";
     String elroy = "http://192.168.1.38:8080/ProgramacionObraMVC/P19_5_ValidarInformacion";
     String id = "http://192.168.1.38:8080/gwt-console-server/rs/identity/sid";
+    String t = "http://192.168.1.38:8080/gwt-console-server/rs/form/task/471/render";
     
     @Test()
     public void test()throws Exception{        
         //rs.setJSESSIONID("90dssIfm2uWMBZEQ3vXDrL1c.undefined");
         System.out.println("************   call test");       
-        System.out.println(rs.get(url));
+        System.out.println(rs.get(t));
                
         
         //System.out.println("byte size: "+rs.image(image, "juan", "juan").length);

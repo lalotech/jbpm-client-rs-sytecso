@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import org.apache.commons.io.IOUtils;
+import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -63,6 +64,7 @@ abstract class JbpmRestTemplate {
             System.out.println("Authenticate JSESSIONID BROWSER: "+SESSION_ID);
         }*/
         HttpResponse response = httpClient.execute(httpPost);
+        showHeaders(response);
         return read(response.getEntity().getContent());
     }
 
@@ -109,6 +111,7 @@ abstract class JbpmRestTemplate {
             httpGet.setHeader("Cookie", "JSESSIONID="+SESSION_ID); 
         }*/
         HttpResponse response = httpClient.execute(httpGet);
+        showHeaders(response);
         return read(response.getEntity().getContent());
     }
 
@@ -160,12 +163,12 @@ abstract class JbpmRestTemplate {
         return requestImage(url);
     }
     private void checkAuthentication(String url,String username,String password)throws Exception{
-        if(getCookies().isEmpty()){
+        //if(getCookies().isEmpty()){
             //Authenticate is cookies is empty
-            log.info("no Authentication found!");
+            //log.info("no Authentication found!");
             requestGet(url);
             authenticate(getUrlAutenticate(url), username, password);
-        }
+        //}
     }
     public List<Cookie> getCookies() {
         List<Cookie> cl = httpClient.getCookieStore().getCookies();
@@ -174,6 +177,11 @@ abstract class JbpmRestTemplate {
             log.info(c.getName() + "=" + c.getValue());
         }
         return cl;
+    }   
+    public void showHeaders(HttpResponse response){
+        for(Header h:response.getAllHeaders()){
+            log.info(h.getName()+"="+h.getValue());
+        }
     }
     public void validateJsessionId() throws Exception{
         if(this.SESSION_ID.equals("")){
